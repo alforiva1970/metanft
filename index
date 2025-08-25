@@ -1,0 +1,28 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Definisco la forma geometrica
+def forma_geometrica(x, y):
+    return np.sin(x) * np.cos(y) + np.cos(x) * np.sin(y)
+
+# Definisco i parametri della forma geometrica
+x = np.linspace(-np.pi, np.pi, 100)
+y = np.linspace(-np.pi, np.pi, 100)
+X, Y = np.meshgrid(x, y)
+
+# Genero la forma geometrica
+Z = forma_geometrica(X, Y)
+
+# Definisco il colore della forma geometrica
+colori = plt.cm.plasma(Z)
+
+# Creo la figura
+plt.figure(figsize=(8, 8))
+plt.imshow(colori, extent=[-np.pi, np.pi, -np.pi, np.pi])
+plt.axis('off')
+
+# Aggiungo un gradiente di colore per rappresentare la luce
+plt.imshow(np.linspace(0, 1, 256).reshape(1, 256), cmap='Blues', extent=[-np.pi, np.pi, np.pi/2, np.pi], alpha=0.5)
+
+# Salvo l'immagine
+plt.savefig('emergenza.png', bbox_inches='tight', dpi=300)
